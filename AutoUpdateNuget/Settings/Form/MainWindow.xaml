@@ -1,0 +1,24 @@
+﻿<Window x:Class="VSIXProject1.Settings.Form.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VSIXProject1.Settings.Form"
+        mc:Ignorable="d"
+        Title="Super Nuget Update" Height="290.021" Width="404.262"
+        MinHeight="290.021"
+        MinWidth="404.262"
+        MaxHeight="290.021"
+        MaxWidth="404.262"
+        
+        >
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="18,27,0,0" TextWrapping="Wrap" Text="Nuget Server: " VerticalAlignment="Top" Name="lblNugetServer"/>
+        <TextBox HorizontalAlignment="Left" Height="24" Margin="18,57,0,0" TextWrapping="Wrap" Text="http://nuget.example.com/v3/index.json" VerticalAlignment="Top" Width="337" Name="txtNugetServer" />
+        <TextBlock HorizontalAlignment="Left" Margin="18,98,0,0" TextWrapping="Wrap" Text="Api Key" VerticalAlignment="Top" Name="lblApiKey" />
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="18,131,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="337" Name="txtApiKey" />
+        <Button Content="Aceptar" HorizontalAlignment="Left" Margin="27,200,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"  />
+        <CheckBox Content="Incrementar Version" HorizontalAlignment="Left" Margin="18,172,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.037,0.481" Name="chkAutoVersion"/>
+
+    </Grid>
+</Window>
