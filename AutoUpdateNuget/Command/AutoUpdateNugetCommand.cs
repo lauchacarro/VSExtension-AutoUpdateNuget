@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Xml.Linq;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft;
@@ -10,7 +12,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using VSIXProject1.Settings.Form;
 using Task = System.Threading.Tasks.Task;
 
-namespace VSIXProject1.Settings.Command
+namespace VSIXProject1.Command
 {
     /// <summary>
     /// Command handler
@@ -93,20 +95,34 @@ namespace VSIXProject1.Settings.Command
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             string title = "Subir A Servidor Nuget";
-
+            string csprojPath = GetSourceFilePath();
             if (IsRelease())
             {
-                MainWindow mainWindow = new MainWindow(GetSourceFilePath());
-                if (mainWindow.ShowDialog().Value)
+                if (IsProjectNetStandardOrNetCore(csprojPath))
+                {
+                    MainWindow mainWindow = new MainWindow(csprojPath);
+                    if (mainWindow.ShowDialog().Value)
+                    {
+                        VsShellUtilities.ShowMessageBox(
+                        this.package,
+                        "Paquete Subido Correctamente",
+                        title,
+                        OLEMSGICON.OLEMSGICON_INFO,
+                        OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                        OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                    }
+                }
+                else
                 {
                     VsShellUtilities.ShowMessageBox(
                     this.package,
-                    "Paquete Subido Correctamente",
+                    "Solo Funciona Con Proyectos NetStandard o NetCore",
                     title,
-                    OLEMSGICON.OLEMSGICON_INFO,
+                    OLEMSGICON.OLEMSGICON_WARNING,
                     OLEMSGBUTTON.OLEMSGBUTTON_OK,
                     OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
                 }
+                
             }
             else
             {
@@ -161,6 +177,23 @@ namespace VSIXProject1.Settings.Command
             SolutionConfiguration2 config = (SolutionConfiguration2)builder.ActiveConfiguration;
             return config.SolutionContexts.Item(1).ConfigurationName == "Release";
 
+        }
+
+        private bool IsProjectNetStandardOrNetCore(string csprojPath)
+        {
+            XElement xElement = XElement.Load(csprojPath);
+            XElement propertyGroupElement = xElement.Element("PropertyGroup");
+            if (propertyGroupElement != null && propertyGroupElement.HasElements)
+            {
+                var elementTarget = propertyGroupElement.Elements("TargetFramework").FirstOrDefault();
+                if (elementTarget != null)
+                {
+                    string targetFramework = elementTarget.Value;
+                    return (targetFramework.Contains("netstandard") || targetFramework.Contains("netcore"));
+
+                }
+            }
+            return false;
         }
     }
 }

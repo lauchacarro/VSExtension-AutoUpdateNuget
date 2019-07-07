@@ -51,8 +51,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Settings\Command\AutoUpdateNugetCommand.cs" />
-    <Compile Include="Settings\Command\AutoUpdateNugetCommandPackage.cs" />
+    <Compile Include="Command\AutoUpdateNugetCommand.cs" />
+    <Compile Include="Command\AutoUpdateNugetCommandPackage.cs" />
     <Compile Include="Settings\Form\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -85,15 +85,15 @@
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.1.3132" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Settings\Command\Resources\Command1.png" />
-    <Content Include="Settings\Command\Resources\Command1Package.ico" />
-    <VSCTCompile Include="Settings\Command\AutoUpdateNugetCommandPackage.vsct">
+    <Content Include="Command\Resources\Command1.png" />
+    <Content Include="Command\Resources\Command1Package.ico" />
+    <VSCTCompile Include="Command\AutoUpdateNugetCommandPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
-    <Content Include="Settings\Command\Resources\VSPackage1.ico" />
+    <Content Include="Command\Resources\VSPackage1.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Settings\Command\VSPackage.resx">
+    <EmbeddedResource Include="Command\VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
       <SubType>Designer</SubType>

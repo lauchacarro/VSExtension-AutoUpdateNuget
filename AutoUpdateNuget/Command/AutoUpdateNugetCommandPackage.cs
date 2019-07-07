@@ -5,7 +5,7 @@ using System.Threading;
 using Microsoft.VisualStudio.Shell;
 using Task = System.Threading.Tasks.Task;
 
-namespace VSIXProject1.Settings.Command
+namespace VSIXProject1.Command
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
